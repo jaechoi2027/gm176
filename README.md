@@ -6,7 +6,7 @@ A p5.js audio visualizer for an ambient electronic music piece.
 
 After GitHub Pages is enabled, the visualizer will be available at:
 
-`https://jaechoi2027.github.io/untolling-visualizer/`
+`https://jaechoi2027.github.io/gm176/`
 
 Click anywhere on the canvas to start or pause the audio.
 
