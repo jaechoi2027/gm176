@@ -4,9 +4,9 @@ let amplitude;
 let particles = [];
 let ripples = [];
 let startTime;
-let songDuration = 180; // 너 곡 길이(초) — 실제 값으로 수정해
+let songDuration = 131;
 
-// 녹화 관련
+// recording
 let recorder;
 let recordedChunks = [];
 let isRecording = false;
@@ -69,7 +69,6 @@ function draw() {
     drawBeatingRing(beatingPairs[i], i, elapsed, progress, baseHue);
   }
 
-  // 녹화 중일 때 빨간 점 표시 (화면 좌상단)
   if (isRecording) {
     resetMatrix();
     noStroke();
@@ -189,23 +188,19 @@ class Particle {
   }
 }
 
-// ===== 녹화 기능 =====
 function setupRecorder() {
   let canvas = document.querySelector('canvas');
   let canvasStream = canvas.captureStream(30); // 30fps
 
-  // p5.sound audio context에서 오디오 가져오기
   let audioContext = getAudioContext();
   let dest = audioContext.createMediaStreamDestination();
   song.connect(dest);
 
-  // 비디오 + 오디오 stream 합치기
   let combinedStream = new MediaStream([
     ...canvasStream.getVideoTracks(),
     ...dest.stream.getAudioTracks()
   ]);
 
-  // 브라우저별 codec 선택 (Chrome/Safari 호환)
   let mimeType = 'video/webm;codecs=vp9,opus';
   if (!MediaRecorder.isTypeSupported(mimeType)) {
     mimeType = 'video/webm;codecs=vp8,opus';
